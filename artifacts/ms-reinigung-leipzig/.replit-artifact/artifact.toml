@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "M.S Reinigung Leipzig"
+description = "A multilingual marketing website for M.S Reinigung, a professional residential and commercial cleaning company serving Leipzig. The site helps German-, Arabic-, and English-speaking customers understand services and request an appointment."
+version = "1.0.0"
+id = "artifacts/ms-reinigung-leipzig"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19540
+
+[services.development]
+run = "pnpm --filter @workspace/ms-reinigung-leipzig run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ms-reinigung-leipzig", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/ms-reinigung-leipzig/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19540"
+BASE_PATH = "/"
